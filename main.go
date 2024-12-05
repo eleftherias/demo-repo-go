@@ -13,7 +13,7 @@ func main() {
 		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
 	})
 
-	Б.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hi There Yolanda!")
 	})
 
