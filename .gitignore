@@ -31,3 +31,4 @@ go.work
 
 .idea/
 demo-go-binary
+.github/actions/stitch-action
