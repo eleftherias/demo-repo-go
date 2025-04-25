@@ -1,0 +1,30 @@
+name: Run Stitch on Label
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  fix-issue:
+    if: github.event.label.name == 'good-ai-issue'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Checkout stitch action
+        uses: actions/checkout@v4
+        with:
+          repository: stacklok/stitch-action
+          ref: v2
+          path: ./.github/actions/stitch-action
+          token: ${{ secrets.PAT }}
+      - name: Run Stitch and create PR
+        uses: ./.github/actions/stitch-action
+        with:
+          base_branch: main
+          issue_number: ${{ github.event.issue.number }}
